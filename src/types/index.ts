@@ -11,6 +11,7 @@ type BuilderInputPrimitiveTypeMap = {
     longText: string;
     richText: string;
     color: string;
+    date: string;
     Tags: string[];
 };
 // Any text based field types can be enumable types https://www.builder.io/c/docs/custom-components-input-types
