@@ -23,6 +23,8 @@
   ],
   "main": "index.js",
   "scripts": {
+    "test": "vitest --typecheck",
+    "test:ci": "vitest --typecheck --run",
     "release": "bumpp",
     "build": "tsc"
   },
@@ -31,7 +33,9 @@
   "license": "MIT",
   "devDependencies": {
     "bumpp": "^9.4.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
   },
   "dependencies": {
     "ts-toolbelt": "^9.6.0"
