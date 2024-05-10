@@ -11,6 +11,7 @@ type BuilderInputPrimitiveTypeMap = {
     longText: string;
     richText: string;
     color: string;
+    Tags: string[];
 };
 type EnumableTypes = 'text' | 'string' | 'email';
 export type Prettify<T> = {
