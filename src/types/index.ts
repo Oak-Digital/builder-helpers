@@ -13,6 +13,7 @@ type BuilderInputPrimitiveTypeMap = {
     color: string;
     Tags: string[];
 };
+// Any text based field types can be enumable types https://www.builder.io/c/docs/custom-components-input-types
 type EnumableTypes = 'text' | 'string' | 'email';
 export type Prettify<T> = {
     [K in keyof T]: T[K];
