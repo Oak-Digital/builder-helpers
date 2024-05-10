@@ -23,12 +23,14 @@
   ],
   "main": "index.js",
   "scripts": {
+    "release": "bumpp",
     "build": "tsc"
   },
   "keywords": [],
   "author": "Oak Digital",
   "license": "MIT",
   "devDependencies": {
+    "bumpp": "^9.4.1",
     "typescript": "^5.4.5"
   },
   "dependencies": {
