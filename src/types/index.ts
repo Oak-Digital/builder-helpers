@@ -1,3 +1,4 @@
+import { Is } from "ts-toolbelt/out/Any/Is.js";
 import { Keys } from "ts-toolbelt/out/Any/Keys.js";
 import { Merge } from "ts-toolbelt/out/Union/Merge.js";
 
@@ -23,7 +24,7 @@ type BuilderInputPrimitiveType = Prettify<Keys<BuilderInputPrimitiveTypeMap>>;
 type BaseInputObject = {
     readonly name: string;
     readonly required?: boolean;
-    // readonly defaultValue?: unknown;
+    readonly defaultValue?: BuilderInputPrimitiveTypeMap[BuilderInputPrimitiveType];
     readonly [key: string]: unknown;
 };
 type UnknownInputObject = BaseInputObject & {
@@ -45,21 +46,31 @@ type ObjectInputObject = BaseInputObject & {
     readonly subFields: readonly InputObject[];
 };
 
+type RequiredFallback<T extends BaseInputObject> =
+    T['required'] extends true ?
+    never :
+    undefined;
 /**
  * This types tries to determine if the input is required or has a default value
  * If it has a default value or is required, the prop should also be required, meaning there will not be a fallback
  * If it is not required and does not have a default, the fallback is undefined
  */
-type InputObjectFallback<T extends InputObject> =
+export type InputObjectFallback<T extends InputObject> =
     T['defaultValue'] extends undefined ?
-    T['required'] extends true ?
-    never :
-    undefined :
-    T['defaultValue'] extends unknown ?
-    never :
-    T['defaultValue'];
+    RequiredFallback<T> :
+    Is<T['defaultValue'], unknown, 'equals'> extends 1 ?
+    RequiredFallback<T> :
+    never;
 
-type InputObject = PrimitiveInputObject | UnknownInputObject | EnumInputObject | ListInputObject;
+export type GetDefaultValue<T extends InputObject> = T['defaultValue'];
+// T['defaultValue'];
+
+// export type InputObjectFallback<T extends InputObject> =
+//     T['required'] extends true ?
+//     never :
+//     undefined;
+
+export type InputObject = PrimitiveInputObject | UnknownInputObject | EnumInputObject | ListInputObject;
 
 type InferEnumType<T extends EnumInputObject> = T['enum'][number];
 type InferListType<T extends ListInputObject> = InputObjectArrayToProps<T['subFields']>[];
@@ -71,7 +82,7 @@ type InferInputBaseType<T extends InputObject> =
     T extends PrimitiveInputObject ? BuilderInputPrimitiveTypeMap[T['type']] :
     unknown;
 type InferInputType<T extends InputObject> = InferInputBaseType<T> | InputObjectFallback<T>;
-type InputObjectToProp<T extends InputObject> = {
+export type InputObjectToProp<T extends InputObject> = {
     readonly [K in T['name']]: InferInputType<T>;
 };
 
