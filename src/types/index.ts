@@ -3,6 +3,7 @@ import { Merge } from "ts-toolbelt/out/Union/Merge.js";
 
 type BuilderInputPrimitiveTypeMap = {
     boolean: boolean;
+    number: number;
     text: string;
     string: string;
     email: string;
