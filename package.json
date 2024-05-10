@@ -1,0 +1,37 @@
+{
+  "name": "@oak-digital/builder-helpers",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "url": "https://github.com/Oak-Digital/builder-helpers"
+  },
+  "bugs": {
+    "url": "https://github.com/Oak-Digital/builder-helpers/issues"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "Oak Digital",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ts-toolbelt": "^9.6.0"
+  }
+}
