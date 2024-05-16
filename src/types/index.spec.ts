@@ -1,4 +1,9 @@
-import { GetDefaultValue, InputObject, InputObjectFallback, InputObjectToProp } from "./index.js";
+import {
+    GetDefaultValue,
+    InputObject,
+    InputObjectFallback,
+    InputObjectToProp,
+} from './index.js';
 
 test('fallback should be undefined when no required or default is set', () => {
     const input = {
@@ -60,4 +65,32 @@ test('fallback should not add undefined when default is set', () => {
     expectTypeOf<{
         test: undefined;
     }>().not.toMatchTypeOf<Prop>();
+});
+
+test('enum can be string', () => {
+    const input = {
+        name: 'test',
+        type: 'enum',
+        enum: ['a', 'b'],
+    } as const satisfies InputObject;
+
+    type Prop = InputObjectToProp<typeof input>;
+
+    expectTypeOf<{
+        test: 'a' | 'b';
+    }>().toMatchTypeOf<Prop>();
+});
+
+test('enum can be number', () => {
+    const input = {
+        name: 'test',
+        type: 'enum',
+        enum: [1, 2],
+    } as const satisfies InputObject;
+
+    type Prop = InputObjectToProp<typeof input>;
+
+    expectTypeOf<{
+        test: 1 | 2;
+    }>().toMatchTypeOf<Prop>();
 });
